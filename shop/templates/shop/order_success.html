@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Дякуємо за замовлення!</h2>
+<p>Ваше замовлення №{{ order.id }} успішно оформлено.</p>
+<p>Ім'я: {{ order.full_name }}</p>
+<p>Email: {{ order.email }}</p>
+<p>Адреса: {{ order.address }}</p>
+<p>Загальна сума: {{ order.total }} грн</p>
+
+<a href="{% url 'shop:product_list' %}"><button>Повернутися до магазину</button></a>
+{% endblock %}

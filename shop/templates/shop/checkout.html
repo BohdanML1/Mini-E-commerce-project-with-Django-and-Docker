@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Оформлення замовлення</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Оформити</button>
+</form>
+
+<h3>Ваш кошик</h3>
+<table>
+  <tr><th>Товар</th><th>Кількість</th><th>Ціна</th><th>Разом</th></tr>
+  {% for item in cart %}
+  <tr>
+    <td>{{ item.product.name }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.price }} грн</td>
+    <td>{{ item.total_price }} грн</td>
+  </tr>
+  {% endfor %}
+</table>
+<p><strong>Загалом: {{ cart.get_total_price }} грн</strong></p>
+
+<a href="{% url 'shop:cart_detail' %}"><button>Повернутися до кошика</button></a>
+{% endblock %}

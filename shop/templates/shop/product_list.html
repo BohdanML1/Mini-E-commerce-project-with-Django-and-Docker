@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Каталог товарів</h2>
+<ul>
+  {% for p in products %}
+  <li>
+    <strong><a href="{% url 'shop:product_detail' slug=p.slug %}">{{ p.name }}</a></strong> — {{ p.price }} грн
+    <form action="{% url 'shop:cart_add' product_id=p.id %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Додати в кошик</button>
+    </form>
+  </li>
+  {% empty %}
+  <li>Немає товарів</li>
+  {% endfor %}
+</ul>
+{% endblock %}

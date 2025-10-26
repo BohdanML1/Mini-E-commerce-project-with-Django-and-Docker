@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Кошик</h2>
+
+{% if cart|length %}
+<table>
+  <tr><th>Товар</th><th>Кількість</th><th>Ціна</th><th>Разом</th><th></th></tr>
+  {% for item in cart %}
+  <tr>
+    <td>{{ item.product.name }}</td>
+    <td>{{ item.quantity }}</td>
+    <td>{{ item.price }} грн</td>
+    <td>{{ item.total_price }} грн</td>
+    <td>
+      <form action="{% url 'shop:cart_remove' product_id=item.product.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Видалити</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<p><strong>Загалом: {{ cart.get_total_price }} грн</strong></p>
+<a href="{% url 'shop:checkout' %}"><button>Оформити замовлення</button></a>
+{% else %}
+<p>Кошик порожній.</p>
+{% endif %}
+
+<a href="{% url 'shop:product_list' %}">Повернутися до товарів</a>
+{% endblock %}
